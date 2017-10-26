@@ -20,7 +20,7 @@ var launchprogram = function () {
   var s=startat,
     d = new Date(),
     of = d.getTimezoneOffset(),
-    n=new Date(s.yr,s.m,s.d,s.h+s.offset,s.mi);
+    n=new Date(s.yr,s.m,s.d,s.h-s.offset,s.mi);
 
     d = d.setTime(d.getTime() + (of * 60 * 1000));
     d = new Date(d);
@@ -36,3 +36,24 @@ var launchprogram = function () {
 
 }
 launchprogram();
+
+
+
+// Or simplified version
+var simplifiedprogram = function (yr,mt,day,hour,min,off,program) {
+      
+    var d = new Date(),
+    of = d.getTimezoneOffset(),
+    n=new Date(yr,mt,day,hour-off,min);
+    d = d.setTime(d.getTime() + (of * 60 * 1000));
+    d = new Date(d);
+   
+  if (n <= d) {
+    program();
+    //Add your function here
+  } else {
+    setTimeout(function(){
+      simplifiedprogram();
+    },1000)
+  }
+}
